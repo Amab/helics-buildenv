@@ -4,6 +4,7 @@ FROM ubuntu:24.04 as builder
 
 # Installs dependencies needed for building, with headers needed for development
 ENV DEBIAN_FRONTEND=noninteractive
+ARG CPPCHECK_VERSION=2.18.0
 
 RUN apt update && apt install -y \
   git g++ libz3-dev cmake libpcre3-dev python3
@@ -11,6 +12,7 @@ RUN apt update && apt install -y \
 WORKDIR /root
 
 RUN git clone --recurse-submodules https://github.com/danmar/cppcheck.git
+RUN cd /root/cppcheck && git checkout "${CPPCHECK_VERSION}" && git submodule update --init --recursive
 
 WORKDIR /root/cppcheck2
 
@@ -26,7 +28,7 @@ RUN apt update && apt install -y libz3-4 libpcre3 \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 LABEL maintainer="helicsdevelopers@helics.org"
-LABEL date="2024-05-03"
+LABEL date="2026-04-05"
 
 # Copy cppcheck to the install location
 COPY --from=builder /usr/local/share/Cppcheck /usr/local/share/Cppcheck

@@ -1,10 +1,12 @@
 FROM helics/buildenv:clang19-builder as builder
 
 WORKDIR /root/develop
+ARG LLVM_VERSION=19.1.0
 
 RUN apt update && apt install -y ninja-build
 
 RUN git clone https://github.com/llvm/llvm-project.git
+RUN cd llvm-project && git checkout "llvmorg-${LLVM_VERSION}"
 
 # Sets the number of threads for make to use
 ARG MAKE_PARALLEL
@@ -39,7 +41,7 @@ FROM helics/buildenv:clang19-builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# last updated 2024-12-04
+# last updated 2026-04-05
 
 # Copy the built libraries from the builder images
 COPY --from=builder /root/develop/libcxx_asan /root/develop/libcxx_asan
@@ -58,4 +60,4 @@ ENV TSAN_CFLAGS="-fsanitize=thread -nostdinc++ -nostdlib++ -L/root/develop/libcx
 
 
 LABEL maintainer="helicsdevelopers@helics.org"
-LABEL date="2024-12-04"
+LABEL date="2026-04-05"

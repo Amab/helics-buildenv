@@ -6,12 +6,13 @@
 ## Dockerfiles
 Each Dockerfile has its own directory that contains all the scripts needed to build it. A GitHub Actions workflow is setup to build and push updated Docker images to Docker Hub. To manually build a Dockerfile, go to its subfolder and then run `docker build . --tag "helics/buildenv:<tag>"`.
 
-- *builder*: Creates an Ubuntu 19.10 image with the default ZMQ, Boost, CMake, git, and g++ packages.
-- *ci-builders*: Creates Ubuntu 19.04 images with several compiler, Boost, and MPI versions. Arguments taken are COMPILER (e.g. gcc-4.9), MPI_VARIANT, MPICH_VERSION, and BOOST_VERSION.
+- *builder*: Creates a general-purpose Ubuntu builder image with the default ZMQ, Boost, CMake, git, and g++ packages.
+- *ci-builders*: Creates parameterized Ubuntu CI images with selectable compiler, Boost, and MPI versions. Arguments taken are `COMPILER` (for example `gcc-4.9`), `MPI_VARIANT`, `MPICH_VERSION`, and `BOOST_VERSION`.
 - *clang-format*: An Alpine image with the tools needed to run clang-format installed.
 - *interface-gen*: Creates a Fedora 31 image with SWIG 4.0.1 and SWIG Matlab (https://github.com/jaeandersson/swig) installed.
-- *octave*: Creates an Ubuntu 18.04 image with Octave 4.2.2 installed.
-- *sanitizers*: Creates an Ubuntu 19.10 image with clang sanitizers installed. The current image includes address, memory, and thread sanitizers with clang 9.
+- *octave*: Provides Ubuntu-based Octave images, including newer `octave-8` variants.
+- *sanitizers*: Provides Clang sanitizer images built from the matching HELICS Clang builder images.
+- Recent builder images include Ubuntu 24.04 and Ubuntu 26.04 variants for newer Clang and GCC toolchains, along with pinned utility images such as `cpplint` and `cppcheck2`.
 
 ## Release
 helics-buildenv is distributed under the terms of the BSD-3 clause license. All new
