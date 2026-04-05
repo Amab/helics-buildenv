@@ -1,4 +1,4 @@
-FROM ubuntu:26.04 as clang21-builder
+FROM ubuntu:26.04 AS clang21-builder
 
 
 ENV DEBIAN_FRONTEND=noninteractive
