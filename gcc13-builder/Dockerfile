@@ -1,4 +1,4 @@
-FROM ubuntu:23.04 as builder
+FROM ubuntu:24.04 AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -17,4 +17,4 @@ RUN rm /usr/bin/gcc && ln -s /usr/bin/gcc-13 /usr/bin/gcc \
   && rm /usr/bin/gcc-ranlib && ln -s /usr/bin/gcc-ranlib-13 /usr/bin/gcc-ranlib
 
 LABEL maintainer="helicsdevelopers@helics.org"
-LABEL date="2023-05-11"
+LABEL date="2026-04-11"
